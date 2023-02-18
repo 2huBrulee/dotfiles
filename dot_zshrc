@@ -1,0 +1,50 @@
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>';
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+
+export HISTFILE=~/.zsh_history
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
+export HISTTIMEFORMAT="[%F %T] "
+setopt HIST_IGNORE_ALL_DUPS  # do not put duplicated command into history list
+setopt HIST_SAVE_NO_DUPS  # do not save duplicated command
+setopt HIST_REDUCE_BLANKS  # remove unnecessary blanks
+setopt INC_APPEND_HISTORY_TIME  # append command to history file immediately after execution
+setopt EXTENDED_HISTORY  # record command start time
+
+
+export LANG=en_US.UTF-8
+export EDITOR='code'
+
+. $HOME/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
+fpath+=~/.zfunc
+
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+
+autoload -U +X bashcompinit && bashcompinit
+
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+eval "$(pyenv init -)"
+
+# FVM to manage flutter versions
+export PATH="$PATH:/Users/ale/fvm/default/bin"
+
+# Location of ruby gems and binaries
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/bin:$PATH
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+# export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib"
+# export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+# export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+[ -f "/Users/ale/.ghcup/env" ] && source "/Users/ale/.ghcup/env" # ghcup-env
+
+eval "$(starship init zsh)"
